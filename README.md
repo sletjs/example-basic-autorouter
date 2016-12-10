@@ -46,7 +46,18 @@ const app = new Slet({
 app.start(3000) 
 ```
 
-## 编写basicctrl.js
+## 编写带有path的controller
+
+由于自动挂载路由，所以没地方指定path，所以path必须出现在controller里
+
+在controller里配置path有2种办法
+
+- this.path = "/"
+- MyBasicController.path = "/2"
+
+下面分别给出示例
+
+### 编写basicctrl.js
 
 编写controllers/basicctrl.js
 
@@ -83,6 +94,40 @@ this.path = "/"
 
 只要是koa-router支持的path，这里都可以写。
 
+### 编写basicctrl2.js
+
+编写controllers/basicctrl2.js
+
+```
+'use strict';
+
+const BasicController = require('slet').BasicController
+
+class MyBasicController extends BasicController {
+  constructor(app, ctx, next) {
+    super(app, ctx, next)
+  }
+  
+  get() { 
+    var a = this.query.a
+    // this.renderType='view'
+    return {
+      a: 'this is a',
+      b: {
+        c: 'ssddssdd a= ' + a
+      }
+    }
+  } 
+}
+
+MyBasicController.path = "/2"
+
+module.exports = MyBasicController
+
+```
+
+这是另外一种配置path的方法，通过static属性来配置。
+
 ## 启动server
 
 最后，执行app.js，启动server
@@ -93,4 +138,7 @@ $ node app.js
 
 ## 查验结果
 
-在浏览器中打开 http://127.0.0.1:3000/?a=2
+在浏览器中打开 
+
+- http://127.0.0.1:3000/?a=2
+- http://127.0.0.1:3000/2?a=2
