@@ -1,6 +1,6 @@
 # Getting Start
 
-这里是sletjs默认api返回的示例
+这里是sletjs自动挂载路由的基础示例
 
 ## 安装slet模块
 
@@ -19,12 +19,36 @@ const app = new Slet({
     debug: true
 });
 
-app.router('/', require('./basicctrl') )  
+app.start(3000) 
+```
 
-app.start(3000)
+## 创建controllers目录
+
+根据slet默认配置，默认如果有controllers目录，则自动将该目录挂载为路由模块。
+
+如果想定制，可以修改配置项automount.path
+
+```
+'use strict';
+
+const Slet = require('slet');
+const app = new Slet({
+    root: __dirname,
+    debug: true,
+    "automount": {
+        "path": "controllers",
+        "option": {
+            "recurse": true
+        }
+    }
+});
+
+app.start(3000) 
 ```
 
 ## 编写basicctrl.js
+
+编写controllers/basicctrl.js
 
 ```
 'use strict';
@@ -34,6 +58,7 @@ const BasicController = require('slet').BasicController
 module.exports = class MyBasicController extends BasicController {
   constructor(app, ctx, next) {
     super(app, ctx, next)
+    this.path = "/"
   }
   
   get() { 
@@ -49,6 +74,14 @@ module.exports = class MyBasicController extends BasicController {
 }
 
 ```
+
+和example-basic版本的basicctrl.js只有一行不一样的，即
+
+```
+this.path = "/"
+```
+
+只要是koa-router支持的path，这里都可以写。
 
 ## 启动server
 
