@@ -1,0 +1,24 @@
+{
+  "name": "gettingstart",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node app",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sletjs/gettingstart.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sletjs/gettingstart/issues"
+  },
+  "homepage": "https://github.com/sletjs/gettingstart#readme",
+  "dependencies": {
+    "slet": "^1.0.2"
+  }
+}
